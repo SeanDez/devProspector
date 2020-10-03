@@ -100,3 +100,4 @@ function authorize(credentials, callback) {
     });
 }
 authorize(googleCredentials, listLabels);
+//# sourceMappingURL=gmail.js.map

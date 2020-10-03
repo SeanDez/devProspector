@@ -32,3 +32,4 @@ if (numberOfEnvKeys === 0) {
     throw new Error('.env file either missing or has no key/value pairs');
 }
 exports.default = envVariables;
+//# sourceMappingURL=envVariablesTyped.js.map

@@ -42,22 +42,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("es6-promise");
 require("isomorphic-fetch");
 var build_url_1 = __importDefault(require("build-url"));
+var envVariablesTyped_1 = __importDefault(require("../shared/envVariablesTyped"));
 var globals_1 = require("../shared/globals");
-var REACT_APP_HUBSPOT_API_KEY = process.env.REACT_APP_HUBSPOT_API_KEY;
+var HUBSPOT_API_KEY = envVariablesTyped_1.default.HUBSPOT_API_KEY;
 var getAllPropertiesPath = '/properties/v1/contacts/properties';
-var getAllEndpoint = build_url_1.default(globals_1.hubspotApiBaseUrl, {
+var getAllEndpoint = encodeURI(build_url_1.default(globals_1.hubspotApiBaseUrl, {
     path: getAllPropertiesPath,
     queryParams: {
-        hapiKey: REACT_APP_HUBSPOT_API_KEY,
+        hapikey: HUBSPOT_API_KEY,
     },
-});
+}));
 function getAllProperties() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, fetch(getAllEndpoint, {
                             method: 'get',
                             headers: {
@@ -66,14 +67,17 @@ function getAllProperties() {
                         })];
                 case 1:
                     response = _a.sent();
-                    data = response.json();
-                    return [2 /*return*/, data];
+                    return [4 /*yield*/, response.json()];
                 case 2:
+                    data = _a.sent();
+                    return [2 /*return*/, data];
+                case 3:
                     error_1 = _a.sent();
                     throw new Error(error_1);
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
 exports.default = getAllProperties;
+//# sourceMappingURL=getAllProperties.js.map

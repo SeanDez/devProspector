@@ -1,9 +1,9 @@
 import Express from 'express';
 import cors from 'cors';
-import envTyped from './shared/envVariablesTyped';
 import moment from 'moment';
 
 import customPropertiesRouter from './customProperties/router';
+import envTyped from './shared/envVariablesTyped';
 
 const { SERVER_PORT } = envTyped;
 

@@ -2,17 +2,18 @@ import 'es6-promise';
 import 'isomorphic-fetch';
 import buildUrl from 'build-url';
 
+import envTyped from '../shared/envVariablesTyped';
 import { hubspotApiBaseUrl } from '../shared/globals';
 
-const { REACT_APP_HUBSPOT_API_KEY } = process.env as { [key: string]: string };
+const { HUBSPOT_API_KEY } = envTyped;
 
 const getAllPropertiesPath = '/properties/v1/contacts/properties';
-const getAllEndpoint = buildUrl(hubspotApiBaseUrl, {
+const getAllEndpoint = encodeURI(buildUrl(hubspotApiBaseUrl, {
   path: getAllPropertiesPath,
   queryParams: {
-    hapiKey: REACT_APP_HUBSPOT_API_KEY,
+    hapikey: HUBSPOT_API_KEY,
   },
-});
+}));
 
 export default async function getAllProperties() {
   try {
@@ -23,7 +24,7 @@ export default async function getAllProperties() {
       },
     });
 
-    const data = response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
     throw new Error(error);

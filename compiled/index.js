@@ -36,3 +36,4 @@ var HUBSPOT_API_KEY = envVariablesTyped_1.default.HUBSPOT_API_KEY;
     change status to contacted (or similar)
 */
 var hubspotClient = new hubspot.Client({ apiKey: HUBSPOT_API_KEY });
+//# sourceMappingURL=index.js.map

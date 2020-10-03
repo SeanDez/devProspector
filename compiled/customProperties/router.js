@@ -42,11 +42,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var getAllProperties_1 = __importDefault(require("./getAllProperties"));
 var router = express_1.Router();
-router.get('/properties/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+/*
+  Responds with all default and custom properties
+*/
+router.get('/properties', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var allProperties;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, getAllProperties_1.default];
+            case 0: return [4 /*yield*/, getAllProperties_1.default()];
             case 1:
                 allProperties = _a.sent();
                 res.json(allProperties);
@@ -56,3 +59,4 @@ router.get('/properties/', function (req, res) { return __awaiter(void 0, void 0
 }); });
 // router.post('/properties', (req: Request, res: Response) => {});
 exports.default = router;
+//# sourceMappingURL=router.js.map
