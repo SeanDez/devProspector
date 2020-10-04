@@ -41,7 +41,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var getAllProperties_1 = __importDefault(require("./getAllProperties"));
+var createNew_1 = __importDefault(require("./createNew"));
 var router = express_1.Router();
+router.get('/customRoot', function (req, res) {
+    var variable = 'this is a local variable';
+    res.json({ message: 'The custom properties router is working' });
+});
 /*
   Responds with all default and custom properties
 */
@@ -57,6 +62,27 @@ router.get('/properties', function (req, res) { return __awaiter(void 0, void 0,
         }
     });
 }); });
-// router.post('/properties', (req: Request, res: Response) => {});
+/*
+  Creates a new custom property
+*/
+router.post('/properties', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var newProperty, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, createNew_1.default(req.body)];
+            case 1:
+                newProperty = _a.sent();
+                res.json(newProperty);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                res.json({ error: error_1.name, message: error_1.message });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 exports.default = router;
 //# sourceMappingURL=router.js.map

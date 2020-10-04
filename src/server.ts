@@ -4,6 +4,7 @@ import Express from 'express';
 import moment from 'moment';
 
 import customPropertiesRouter from './customProperties/router';
+import contactRouter from './contact/router';
 import envTyped from './shared/envVariablesTyped';
 
 const { SERVER_PORT } = envTyped;
@@ -14,7 +15,8 @@ server
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: false }))
   .use(cors())
-  .use(customPropertiesRouter);
+  .use(customPropertiesRouter)
+  .use('/contact', contactRouter);
 
 // to be deleted after dev phase
 server.get('/', (req: Express.Request, res: Express.Response) => {

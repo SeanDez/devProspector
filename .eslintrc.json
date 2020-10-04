@@ -18,6 +18,8 @@
         "camelcase": 0,
         "import/extensions": 0,
         "import/no-unresolved": 0,
-        "no-undef": 0
+        "no-undef": 0,
+        "no-unused-vars": 0,
+        "no-shadow": 0
     }
 }

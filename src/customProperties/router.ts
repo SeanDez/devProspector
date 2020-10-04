@@ -5,12 +5,6 @@ import IHubspotProperty from './IHubspotProperty';
 
 const router = Router();
 
-router.get('/customRoot', (req: Request, res: Response) => {
-  const variable = 'this is a local variable';
-
-  res.json({ message: 'The custom properties router is working' });
-});
-
 /*
   Responds with all default and custom properties
 */
