@@ -43,10 +43,6 @@ var express_1 = require("express");
 var getAllProperties_1 = __importDefault(require("./getAllProperties"));
 var createNew_1 = __importDefault(require("./createNew"));
 var router = express_1.Router();
-router.get('/customRoot', function (req, res) {
-    var variable = 'this is a local variable';
-    res.json({ message: 'The custom properties router is working' });
-});
 /*
   Responds with all default and custom properties
 */

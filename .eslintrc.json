@@ -20,6 +20,7 @@
         "import/no-unresolved": 0,
         "no-undef": 0,
         "no-unused-vars": 0,
-        "no-shadow": 0
+        "no-shadow": 0, // this one is broken
+        "import/prefer-default-export": 0
     }
 }
