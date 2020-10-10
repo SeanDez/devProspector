@@ -5,10 +5,10 @@ import { google } from 'googleapis';
 
 /* eslint-disable no-console */
 
-const googleCredentialsFilePath = path.join(__dirname, '../', 'devProspectorGoogleCredentials.json');
+const googleCredentialsFilePath = path.join(__dirname, '../../', 'oauthKeyFile.json');
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -63,26 +63,19 @@ function getNewToken(oAuth2Client: any, callback: Function) {
  */
 function listLabels(auth: any) {
   const gmail = google.gmail({ version: 'v1', auth });
-  gmail.users.labels.list({
-    userId: 'me',
-  }, (err, res) => {
-    if (err) {
-      throw new Error(`The API returned an error: ${err}`);
-    }
 
-    if (Boolean(res) === false) { throw new Error('res is falsy'); }
+  const labels = gmail.users.labels.list({ userId: 'me' },
+    (err, res) => {
+      if (err) { throw new Error(`The API returned an error: ${err}`); }
+      if (Boolean(res) === false) { throw new Error('res is falsy'); }
 
-    const { labels } = res!.data;
+      const { labels } = res!.data;
+      if (labels && labels.length) { return labels; }
+      return 'No labels found.';
+    });
 
-    if (labels && labels.length) {
-      console.log('Labels:');
-      labels.forEach((label) => {
-        console.log(`- ${label.name}`);
-      });
-    } else {
-      console.log('No labels found.');
-    }
-  });
+  console.log(labels);
+  return labels;
 }
 
 /**
@@ -91,7 +84,7 @@ function listLabels(auth: any) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials: any, callback: Function) {
+export function authorize(credentials: any, callback: Function) {
   const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
     client_id, client_secret, redirect_uris[0],
@@ -105,4 +98,7 @@ function authorize(credentials: any, callback: Function) {
   });
 }
 
+// disable this after first run
 authorize(googleCredentials, listLabels);
+
+export default authorize;

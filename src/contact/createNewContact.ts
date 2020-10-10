@@ -30,7 +30,7 @@ interface NewContactBody { properties: PropertyAndValue[] }
 export default async (req: Request, res: Response) => {
   const {
     firstName: firstname, lastName: lastname, companyName: company,
-    employeeRoleCode, email, completeIntroSentence, customContactChannel,
+    employeeRoleCode, email,
   } = req.body;
 
   const prospect_category = EProspectCategories[employeeRoleCode
@@ -66,6 +66,10 @@ export default async (req: Request, res: Response) => {
     });
 
     const jsonData = await response.json();
+    const successKey = 'canonical-vid';
+
+    const hasSuccessKey = Object.prototype.hasOwnProperty.call(jsonData, successKey);
+
     return jsonData;
   } catch (error) {
     res.status(500).json(error);

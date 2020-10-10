@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import customPropertiesRouter from './customProperties/router';
 import contactRouter from './contact/router';
+import gmailRouter from './gmail/router';
 import envTyped from './shared/envVariablesTyped';
 
 const { SERVER_PORT } = envTyped;
@@ -16,7 +17,8 @@ server
   .use(bodyParser.urlencoded({ extended: false }))
   .use(cors())
   .use(customPropertiesRouter)
-  .use('/contact', contactRouter);
+  .use('/contact', contactRouter)
+  .use('/gmail', gmailRouter);
 
 // to be deleted after dev phase
 server.get('/', (req: Express.Request, res: Express.Response) => {
