@@ -24,5 +24,6 @@
   ],
   "exclude": [
     "node_modules", "compiled", "__tests__"
-  ]
+  ],
+  "ts-node": { "files": true }
 }
