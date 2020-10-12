@@ -12,7 +12,7 @@ router.get('/validate', async (req: Request, res: Response) => {
   const suspectEmail = req.query.email;
   if (typeof suspectEmail === 'undefined') { res.json({ error: 'no req.query.email' }); }
 
-  const emailer = Emailer(MAILGUN_PRIVATE_API_KEY, res);
+  const emailer = Emailer();
   const validated = await emailer.validate((suspectEmail as string));
   res.json(validated);
 });
@@ -27,7 +27,12 @@ router.post('/send', async (req: Request, res: Response) => {
   } = req.body;
 
   const emailer = Emailer();
-  emailer
-    .send(firstName, companyName, FROM_EMAIL, toEmail, prospectCategory, introCompliment, res);
+  try {
+    const message = await emailer
+      .send(firstName, companyName, FROM_EMAIL, toEmail, prospectCategory, introCompliment);
+    res.status(200).json({ message });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 export default router;

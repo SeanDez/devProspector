@@ -105,7 +105,7 @@ export default () => {
 
     async send(firstName: string, companyName: string, fromEmail: string, toEmail: string,
       prospectCategory: EProspectCategories,
-      introCompliment: string, res: Response): Promise<void> {
+      introCompliment: string): Promise<object> {
       const messageTitle = getMessageTitle(firstName, prospectCategory);
       const messageBody = getMessageBody(firstName, prospectCategory, companyName, introCompliment);
 
@@ -116,13 +116,14 @@ export default () => {
         text: messageBody,
       };
 
-      mailgun.messages().send(messageDetails, (error, message) => {
-        if (error) {
-          res.status(500).json({ error });
-          throw new Error(String(error));
-        }
-
-        res.status(200).json({ message });
+      return new Promise((resolve, reject) => {
+        mailgun.messages().send(
+          messageDetails,
+          (error, message) => {
+            if (error) { reject(error); }
+            resolve(message);
+          },
+        );
       });
     },
   };
