@@ -22,17 +22,20 @@ router.post('/send', async (req: Request, res: Response) => {
     firstName,
     companyName,
     email: toEmail,
-    prospectCategory,
+    employeeRoleCode,
     completeIntroSentence: introCompliment,
   } = req.body;
 
   const emailer = Emailer();
+  const prospectCategory = emailer.convertToProspectCategory(employeeRoleCode);
+
   try {
-    const message = await emailer
-      .send(firstName, companyName, FROM_EMAIL, toEmail, prospectCategory, introCompliment);
-    res.status(200).json({ message });
-  } catch (error) {
-    res.status(500).json({ error });
+    const mailgunDetails = await emailer
+      .send(firstName, companyName, FROM_EMAIL,
+        toEmail, prospectCategory, introCompliment);
+    res.status(200).json({ message: mailgunDetails.message });
+  } catch (mailgunError) {
+    res.status(500).json({ message: mailgunError.error });
   }
 });
 export default router;

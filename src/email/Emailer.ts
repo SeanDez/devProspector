@@ -103,9 +103,22 @@ export default () => {
       }
     },
 
+    convertToProspectCategory(roleCode: string) {
+      const normalizedCode = roleCode.toUpperCase();
+
+      if (normalizedCode === 'R') {
+        return EProspectCategories.recruiter;
+        // eslint-disable-next-line no-else-return
+      } else if (normalizedCode === 'S') {
+        return EProspectCategories.sales;
+      }
+
+      return EProspectCategories.technical;
+    },
+
     async send(firstName: string, companyName: string, fromEmail: string, toEmail: string,
       prospectCategory: EProspectCategories,
-      introCompliment: string): Promise<object> {
+      introCompliment: string): Promise<{ id: string, message?: string, error?: string }> {
       const messageTitle = getMessageTitle(firstName, prospectCategory);
       const messageBody = getMessageBody(firstName, prospectCategory, companyName, introCompliment);
 
@@ -119,9 +132,9 @@ export default () => {
       return new Promise((resolve, reject) => {
         mailgun.messages().send(
           messageDetails,
-          (error, message) => {
+          (error, mailgunDetails) => {
             if (error) { reject(error); }
-            resolve(message);
+            resolve(mailgunDetails);
           },
         );
       });
