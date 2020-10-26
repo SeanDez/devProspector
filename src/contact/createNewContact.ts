@@ -73,5 +73,6 @@ export default async (req: Request, res: Response) => {
     return jsonData;
   } catch (error) {
     res.status(500).json(error);
+    throw new Error(error);
   }
 };
