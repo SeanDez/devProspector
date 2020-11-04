@@ -5,7 +5,7 @@ import { authenticate } from '@google-cloud/local-auth';
 
 /* eslint-disable no-console */
 
-const credentialsFilePath = path.join(__dirname, '../../', 'oauthKeyFile.json');
+const credentialsFilePath = path.join(__dirname, '../../', 'oauthKeyFile2.json');
 
 // If modifying these scopes, delete token.json.
 const scopes = [

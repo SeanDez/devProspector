@@ -70,7 +70,7 @@ export default async (req: Request, res: Response) => {
 
     const hasSuccessKey = Object.prototype.hasOwnProperty.call(jsonData, successKey);
 
-    return jsonData;
+    return res.status(200).json(jsonData);
   } catch (error) {
     res.status(500).json(error);
     throw new Error(error);
